@@ -17,8 +17,12 @@ Route::get('/', function () {
 
 //article
 Route::get('/article', 'ArticlesController@index');
-Route::get('/article/create','ArticleController@create');
+Route::get('/article/create','ArticlesController@create');
+Route::post('/article/store','ArticlesController@store');
 Route::get('/article/edit','ArticleController@edit');
+Route::post('/article/update','ArticlesController@update');
+Route::get('/article/delete/{id}','ArticlesController@destroy');
+Route::get('/article/edit/{id}','ArticlesController@edit');
 
 //catagory
 Route::get('/catagory','CatagoriesController@index');

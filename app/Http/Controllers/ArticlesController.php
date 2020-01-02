@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
+use App\Models\Catagory;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ArticlesController extends Controller
@@ -13,8 +15,9 @@ class ArticlesController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        return view('/article/index');
+    {   
+        $article=Article::all();
+        return view('/article/index',['article'=>$article]);
     }
 
     /**
@@ -23,8 +26,10 @@ class ArticlesController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
-        //
+    {   
+        $article=Catagory::orderBy('name')->get();
+        $user=User::orderBy('name')->get();
+        return view('/article/create',['article'=>$article],['user'=>$user]);
     }
 
     /**
@@ -35,7 +40,15 @@ class ArticlesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      $article=New Article;
+      $article->Catagory_id=$request->catagory;
+      $article->title=$request->title;
+      $article->content=$request->content;
+      $article->created_by=$request->author;
+      $article->status=$request->status;
+
+      $article->save();
+      return redirect('/article')->with('success','berhasil tampah article');
     }
 
     /**
@@ -55,9 +68,12 @@ class ArticlesController extends Controller
      * @param  \App\Models\Article  $article
      * @return \Illuminate\Http\Response
      */
-    public function edit(Article $article)
+    public function edit($id)
     {
-        //
+        $article['article']=Article::find($id);
+        $catagory['catagory']=Catagory::all();
+        // $dam['user']=User::all();
+        return view('/article/edit',$article,$catagory);
     }
 
     /**
@@ -67,9 +83,16 @@ class ArticlesController extends Controller
      * @param  \App\Models\Article  $article
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Article $article)
+    public function update(Request $request)
     {
-        //
+        $article=Article::Where('id',$request->id)->update([
+            'catagory_id'=>$request->catagory,
+            'title'=>$request->title,
+            'content'=>$request->content,
+            'created_by'=>$request->author,         
+            'status'=>$request->status
+        ]);
+        return redirect('article')->with('update','berhasil update article'); 
     }
 
     /**
@@ -78,8 +101,11 @@ class ArticlesController extends Controller
      * @param  \App\Models\Article  $article
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Article $article)
+    public function destroy($id)
     {
-        //
+        $article=Article::find($id);
+        $article->delete();
+        return redirect('/article')->with('delete','berhasil hapus article');
+
     }
 }

@@ -24,7 +24,7 @@
       <!-- /.search form -->
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
-        <li class="header">MAIN NAVIGATION</li>
+        <li class="header">MAIN MENU</li>
         <li class="">
           <a href='{{url("/")}}'>
             <i class="fa fa-dashboard"></i> <span>Beranda</span>
@@ -38,6 +38,12 @@
         <li class="">
           <a href='{{url("/article")}}'>
             <i class="fa fa-book"></i> <span>Article</span>
+          </a>
+        </li>
+        <li class="header">ADMIN</li>
+        <li class="">
+          <a href='{{url("/user")}}'>
+            <i class="fa fa-user"></i> <span>User</span>
           </a>
         </li>
       </ul>

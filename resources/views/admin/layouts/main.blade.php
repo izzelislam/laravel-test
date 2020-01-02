@@ -54,5 +54,17 @@
     $('.sidebar-menu').tree()
   })
 </script>
+<script src='{{asset("AdminLTE-2.4.18/bower_components/ckeditor/ckeditor.js")}}'></script>
+<!-- Bootstrap WYSIHTML5 -->
+<script src='{{asset("AdminLTE-2.4.18/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js")}}'></script>
+<script>                   
+  $(function () {
+    // Replace the <textarea id="editor1"> with a CKEditor
+    // instance, using default configuration.
+    CKEDITOR.replace('editor1')
+    //bootstrap WYSIHTML5 - text editor
+    $('.textarea').wysihtml5()
+  })
+</script>
 </body>
 </html>
